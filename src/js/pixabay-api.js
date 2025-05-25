@@ -1,7 +1,6 @@
 import axios from 'axios';
 axios.defaults.baseURL = 'https://pixabay.com/api/';
-export default async function getImagesByQuery(query, page) {
-  // Ця функція повинна приймати два параметри query (пошукове слово, яке є рядком) та page (номер сторінки, яка є числом), здійснювати HTTP-запит і повертати значення властивості data з отриманої відповіді.
+export default async function getImagesByQuery(query, page = 1) {
   try {
     const response = await axios.get('', {
       params: {
@@ -14,11 +13,9 @@ export default async function getImagesByQuery(query, page) {
         safesearch: true,
       },
     });
-    const data = response.data.hits;
-    // console.log(data);
-    return data;
+    return response.data;
   } catch (error) {
-    console.log(error, response.status);
+    console.error('API Error:', error);
     throw error;
   }
 }
